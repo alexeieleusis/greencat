@@ -1,0 +1,7 @@
+<ul>
+    <todo *ngFor="let todo of todos; let i = index"
+          [text]="todo.description"
+          [completed]="todo.completed"
+          (click)="toggleTodoHandler(i)">
+    </todo>
+</ul>

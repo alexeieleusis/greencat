@@ -1,0 +1,6 @@
+<div *ngFor="let filter of filters; let i = index">
+    <a href="#"
+       (click)="setVisibilityHandler(i)">
+        {{labels[filter]}}
+    </a>
+</div>
