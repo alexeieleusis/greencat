@@ -1,0 +1,10 @@
+<h1>My First Greencat Angular 2 App</h1>
+<add-todo (addTodo)="addTodoHandler($event)"></add-todo>
+<br>
+<todolist [todos]="visibleTodos"
+          (toggleTodo)="toggleTodoHandler($event)">
+</todolist>
+<br>
+<footer [filters]="filters"
+        (setVisibilityFilter)="setVisibilityFilterHandler($event)">
+</footer>

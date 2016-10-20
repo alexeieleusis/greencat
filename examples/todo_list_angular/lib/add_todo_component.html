@@ -1,0 +1,5 @@
+<span>Todo description: </span>
+<input [value]="description"
+       (change)="description = $event.target.value"
+       type="text">
+<button (click)="onClick()">Add todo!</button>

@@ -1,4 +1,4 @@
-name: greencat
+name: todo_list
 description: A starting point for Dart libraries or applications.
 version: 0.0.1
 #author: Alexei Eleusis Díaz Vera <email@example.com>
@@ -8,15 +8,10 @@ environment:
   sdk: '>=1.0.0 <2.0.0'
 
 dependencies:
-  logging: '^0.11.3'
-  option:
+  greencat:
+    path: ../..
   tuple: '1.0.0'
+#  lib_name: any
 
 dev_dependencies:
-  coverage: "^0.7.3"
-  dart_dev: "^1.0.0"
-  dart_style: ">=0.1.8 <0.3.0"
-  dartdoc: "^0.4.0"
   test: '>=0.12.0 <0.13.0'
-  todo_list:
-    path: testing/todo_list
