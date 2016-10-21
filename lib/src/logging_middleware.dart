@@ -1,7 +1,7 @@
 library logging_middleware;
 
-import 'package:logging/logging.dart';
 import 'package:greencat/greencat.dart';
+import 'package:logging/logging.dart';
 
 /// Middleware to handle async actions.
 class LoggingMiddleware<S, A extends Action> implements Function {

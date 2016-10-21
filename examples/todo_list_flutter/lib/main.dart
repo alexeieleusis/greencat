@@ -26,10 +26,6 @@ class _TodoListState extends State<TodoListHome> {
   final TextStyle linethrough =
       new TextStyle(decoration: TextDecoration.lineThrough);
 
-  void _addTodo() {
-    store.dispatch(addTodo('description'));
-  }
-
   @override
   Widget build(BuildContext context) {
     final todosTexts = store.state.todos
@@ -53,6 +49,12 @@ class _TodoListState extends State<TodoListHome> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    store.close();
+  }
+
+  @override
   void initState() {
     super.initState();
     store.stream.listen((TodoState state) {
@@ -63,9 +65,7 @@ class _TodoListState extends State<TodoListHome> {
     store.dispatch(toggleTodo(0));
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    store.close();
+  void _addTodo() {
+    store.dispatch(addTodo('description'));
   }
 }

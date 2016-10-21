@@ -21,6 +21,13 @@ class AppComponent implements OnInit, OnDestroy {
   /// Visibility filters to show to the user.
   Iterable<VisibilityFilter> get filters => VisibilityFilter.values;
 
+  Iterable<Todo> get visibleTodos => combinedStore.state.item1.where((t) =>
+      combinedStore.state.item2 == VisibilityFilter.all ||
+      t.completed &&
+          combinedStore.state.item2 == VisibilityFilter.showCompleted ||
+      !t.completed &&
+          combinedStore.state.item2 == VisibilityFilter.showPending);
+
   /// Dispatch the add to-do to the store.
   void addTodoHandler(String description) {
     combinedStore.dispatch(asyncAddTodo(description));
@@ -56,11 +63,4 @@ class AppComponent implements OnInit, OnDestroy {
   void toggleTodoHandler(int index) {
     combinedStore.dispatch(toggleTodo(index));
   }
-
-  Iterable<Todo> get visibleTodos => combinedStore.state.item1.where((t) =>
-      combinedStore.state.item2 == VisibilityFilter.all ||
-      t.completed &&
-          combinedStore.state.item2 == VisibilityFilter.showCompleted ||
-      !t.completed &&
-          combinedStore.state.item2 == VisibilityFilter.showPending);
 }

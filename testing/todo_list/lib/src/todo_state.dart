@@ -48,6 +48,4 @@ class TodoState {
   String toString() {
     return 'TodoState{filter: $filter, todos: $todos, visibleTodos: $visibleTodos}';
   }
-
-
 }
