@@ -6,7 +6,7 @@ progress and might introduce backward incompatible changes, though it is avoided
 
 ## Usage
 
-Examples of usage are provided with [AngularDart 2](https://github.com/dart-lang/angular2) and [Flutter](https://github.com/flutter/flutter).
+Examples of usage are provided with [AngularDart 2](https://github.com/dart-lang/angular2), [Flutter](https://github.com/flutter/flutter) and [Butterfly](https://github.com/yjbanov/butterfly).
 
 ## Features and bugs
 
