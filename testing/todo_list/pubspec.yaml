@@ -10,7 +10,7 @@ environment:
 dependencies:
   greencat:
     path: ../..
-  tuple: '1.0.0'
+  tuple: ^1.0.1
 
 dev_dependencies:
   test: '>=0.12.0 <0.13.0'
