@@ -8,7 +8,7 @@ import 'todo_state.dart';
 import 'package:tuple/tuple.dart';
 
 /// The reducer for the TodoApp.
-Reducer<TodoState, TodoAction<dynamic>> todoApp =
+Reducer<TodoState, TodoAction> todoApp =
     (TodoAction<dynamic> action, {TodoState currentState}) {
   if (currentState == null) {
     return new TodoState.initial();
