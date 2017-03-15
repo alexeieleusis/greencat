@@ -2,8 +2,11 @@ name: todo_list_flutter
 description: A new flutter project.
 dependencies:
   flutter:
-    path: ../../../flutter/packages/flutter
+    sdk: flutter
   todo_list:
     path: ../../testing/todo_list
   greencat:
     path: ../..
+
+flutter:
+  uses-material-design: true
