@@ -28,8 +28,8 @@ class _TodoListState extends State<TodoListHome> {
 
   @override
   Widget build(BuildContext context) {
-    final todosTexts = store.state.todos
-        .map(/*<Widget>*/(t) => new GestureDetector(
+    final List<Widget> todosTexts = store.state.todos
+        .map((Todo t) => new GestureDetector(
             child: new Text(t.description,
                 style: t.completed ? linethrough : null),
             onTap: () {
@@ -40,7 +40,7 @@ class _TodoListState extends State<TodoListHome> {
         appBar: new AppBar(title: new Text('Redux Todo List')),
         body: new Flex(
             children: todosTexts,
-            direction: FlexDirection.vertical,
+            direction: Axis.vertical,
             crossAxisAlignment: CrossAxisAlignment.start),
         floatingActionButton: new FloatingActionButton(
             onPressed: _addTodo,
