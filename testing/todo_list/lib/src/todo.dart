@@ -9,14 +9,13 @@ class Todo {
   final bool completed;
 
   /// Creates a new instance.
-  Todo(this.description, this.completed);
+  Todo(this.description, {this.completed: false});
 
   /// Copies this instance into a new one changing the specifies values.
   Todo copy({String description, bool completed}) =>
-      new Todo(description ?? this.description, completed ?? this.completed);
+      new Todo(description ?? this.description,
+          completed: completed ?? this.completed);
 
   @override
-  String toString() {
-    return 'Todo{description: $description, completed: $completed}';
-  }
+  String toString() => 'Todo{description: $description, completed: $completed}';
 }

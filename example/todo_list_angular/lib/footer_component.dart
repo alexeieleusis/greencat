@@ -2,7 +2,7 @@ library footer_component;
 
 import 'dart:async';
 
-import 'package:angular2/common.dart';
+import 'package:angular2/angular2.dart';
 import 'package:angular2/core.dart';
 import 'package:todo_list/todo_list.dart';
 
@@ -13,8 +13,7 @@ import 'package:todo_list/todo_list.dart';
     directives: const [NgFor],
     changeDetection: ChangeDetectionStrategy.OnPush)
 class FooterComponent implements OnDestroy {
-  StreamController<VisibilityFilter> _controller =
-      new StreamController<VisibilityFilter>.broadcast();
+  final _controller = new StreamController<VisibilityFilter>.broadcast();
 
   /// Provides labels suitable to display in the ui.
   final Map<VisibilityFilter, String> labels = const {

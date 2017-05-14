@@ -1,17 +1,17 @@
 library todo_app;
 
 import 'package:greencat/greencat.dart';
+import 'package:tuple/tuple.dart';
+
 import 'action_type.dart';
 import 'todo.dart';
 import 'todo_action.dart';
 import 'todo_state.dart';
-import 'package:tuple/tuple.dart';
 
 /// The reducer for the TodoApp.
-Reducer<TodoState, TodoAction> todoApp =
-    (TodoAction<dynamic> action, {TodoState currentState}) {
+TodoState todoApp(TodoAction<dynamic> action, {TodoState currentState}) {
   if (currentState == null) {
-    return new TodoState.initial();
+    return const TodoState.initial();
   }
 
   switch (action.type) {
@@ -24,30 +24,29 @@ Reducer<TodoState, TodoAction> todoApp =
     default:
       return currentState;
   }
-};
+}
 
 /// Reducer built with the combine method in ReducerBase class.
 ReducerBase<Tuple2<Iterable<Todo>, VisibilityFilter>, TodoAction>
     todoCombinedApp =
     new TodosReducer().combineWith(new VisibilityFilterReducer());
 
-Reducer<Iterable<Todo>, TodoAction<dynamic>> _todos =
-    (TodoAction<dynamic> action, {Iterable<Todo> currentState}) {
+Iterable<Todo> _todos(TodoAction<dynamic> action,
+    {Iterable<Todo> currentState}) {
   switch (action.type) {
     case ActionType.addTodo:
-      return currentState = (new List<Todo>.from(currentState)
-            ..add(new Todo(action.payload, false)))
+      return (new List<Todo>.from(currentState)
+        ..add(new Todo(action.payload)))
           .toList(growable: false);
     case ActionType.toggleTodo:
       final originalTodo = currentState.elementAt(action.payload);
       final todo = originalTodo.copy(completed: !originalTodo.completed);
-      final replaceTodo = (Todo t) => t == originalTodo ? todo : t;
-      return currentState =
-          currentState.map(replaceTodo).toList(growable: false);
+      Todo replaceTodo(Todo t) => t == originalTodo ? todo : t;
+      return currentState.map(replaceTodo).toList(growable: false);
     default:
       return currentState;
   }
-};
+}
 
 /// Reducer for Iterable<To do> state.
 class TodosReducer extends ReducerBase<Iterable<Todo>, TodoAction> {
@@ -60,13 +59,13 @@ class TodosReducer extends ReducerBase<Iterable<Todo>, TodoAction> {
     switch (action.type) {
       case ActionType.addTodo:
         return (new List<Todo>.from(currentState)
-              ..add(new Todo(action.payload, false)))
+          ..add(new Todo(action.payload)))
             .toList(growable: false);
       case ActionType.toggleTodo:
         final originalTodo = currentState.elementAt(action.payload);
         final todo = originalTodo.copy(completed: !originalTodo.completed);
-        final replaceTodo = (Todo t) => t == originalTodo ? todo : t;
-        return currentState.map(replaceTodo).toList(growable: false);
+        Todo _replaceTodo(t) => t == originalTodo ? todo : t;
+        return currentState.map(_replaceTodo).toList(growable: false);
       default:
         return currentState;
     }

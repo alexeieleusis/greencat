@@ -2,7 +2,7 @@ library todolist_component;
 
 import 'dart:async';
 
-import 'package:angular2/common.dart';
+import 'package:angular2/angular2.dart';
 import 'package:angular2/core.dart';
 import 'package:todo_list/todo_list.dart';
 import 'package:todo_list_angular/todo_component.dart';

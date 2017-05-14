@@ -76,18 +76,19 @@ class Store<S, A extends Action> implements Sink<A> {
   ///  on, and the change listeners will immediately be notified.
   void dispatch(A action) {
     final args = new MiddlewareApi<S, A>(this);
-    final Dispatch<A> zero = (A a) {
+    S zero(A a) {
       _state = _reducer(a, currentState: _state);
       _controller.add(_state);
       return _state;
-    };
-    final Iterable<DispatchTransformer<A>> transformers =
-        _middlewares.map((m) => m(args));
-    final Dispatch<A> dispatch =
+    }
+
+    final transformers = _middlewares.map((m) => m(args));
+    final dispatch =
         transformers.fold(zero, (acc, transformer) => transformer(acc));
     dispatch(action);
   }
 
+  // ignore: use_setters_to_change_properties
   /// Adds a change listener. It will be called any time an action is
   /// dispatched, and some part of the state tree may potentially have changed.
   /// You may then call getState() to read the current state tree inside the

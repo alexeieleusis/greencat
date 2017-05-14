@@ -17,9 +17,7 @@ void main() {
 /// App to manage todos.
 class TodoApp extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return new _TodoAppState();
-  }
+  State<StatefulWidget> createState() => new _TodoAppState();
 }
 
 class _TodoAppState extends State<TodoApp> {
@@ -28,29 +26,30 @@ class _TodoAppState extends State<TodoApp> {
   combinedStore = new Store.createStore(todoCombinedApp);
 
   _TodoAppState() {
-    combinedStore.dispatch(addTodo('take care of the green caterpillar'));
-    combinedStore.dispatch(addTodo('wait until it becomes a butterfly :)'));
-    combinedStore.dispatch(addTodo('teach the butterfly to flutter'));
-    combinedStore.dispatch(toggleTodo(0));
-    combinedStore.addMiddleware(new ThunkMiddleware<
-        Tuple2<Iterable<Todo>, VisibilityFilter>,
-        TodoAction>());
-    Logger.root.level = Level.FINE;
-    Logger.root.onRecord.listen((LogRecord rec) {
-      print('${rec.loggerName} ${rec.time}');
-      print('${rec.message}');
-    });
+    combinedStore
+      ..dispatch(addTodo('take care of the green caterpillar'))..dispatch(
+        addTodo('wait until it becomes a butterfly :)'))..dispatch(
+        addTodo('teach the butterfly to flutter'))..dispatch(toggleTodo(0))
+      ..addMiddleware(const ThunkMiddleware<
+          Tuple2<Iterable<Todo>, VisibilityFilter>,
+          TodoAction>());
+    Logger.root
+      ..level = Level.FINE
+      ..onRecord.listen((rec) {
+        print('${rec.loggerName} ${rec.time}');
+        print('${rec.message}');
+      });
 
     combinedStore.addMiddleware(new LoggingMiddleware(Logger.root));
   }
 
   List<Element> get _buildListItems =>
       _visibleTodos
-          .map((Todo todo) =>
+          .map((todo) =>
           li()([
             div()([
               input('checkbox', attrs: const {'class': 'toggle'},
-                  props: (Props props) {
+                  props: (props) {
                     props.checked = todo.completed;
                   }, eventListeners: {
                     EventType.click: (_) {
@@ -84,7 +83,7 @@ class _TodoAppState extends State<TodoApp> {
             'placeholder': 'What needs to be done?',
             'autofocus': '',
           }, eventListeners: {
-            EventType.keyup: onKeyEnter((Event event) {
+            EventType.keyup: onKeyEnter((event) {
               _enterTodo(event.nativeEvent.target as html.InputElement);
             })
           })(),
@@ -167,9 +166,9 @@ class _TodoAppState extends State<TodoApp> {
   int _findIndex(Todo todo) => combinedStore.state.item1.toList().indexOf(todo);
 
   void _toggleAll(Event event) {
-    combinedStore.state.item1.forEach((Todo todo) {
+    for (final todo in combinedStore.state.item1) {
       combinedStore.dispatch(toggleTodo(_findIndex(todo)));
-    });
+    }
     scheduleUpdate();
   }
 }

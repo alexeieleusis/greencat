@@ -26,8 +26,8 @@ void main() {
     });
 
     test('toggles a todo', () {
-      store.dispatch(addTodo('test this adds a todo'));
-      store.dispatch(addTodo('test this adds another todo'));
+      store..dispatch(addTodo('test this adds a todo'))..dispatch(
+          addTodo('test this adds another todo'));
 
       expect(store.state.todos.elementAt(0).completed, isFalse);
 
@@ -46,9 +46,10 @@ void main() {
     });
 
     test('adds middleware', () async {
-      store.addMiddleware(const ThunkMiddleware());
+      store
+        ..addMiddleware(const ThunkMiddleware())
+        ..dispatch(asyncAddTodo('thunk!'));
 
-      store.dispatch(asyncAddTodo('thunk!'));
       await store.stream.first;
 
       expect(store.state.todos.length, 1);
@@ -57,11 +58,10 @@ void main() {
 
     test('logging middleware sends messages', () async {
       store.addMiddleware(new LoggingMiddleware(Logger.root));
-      Logger.root.level = Level.FINE;
       final logRecords = <LogRecord>[];
-      Logger.root.onRecord.listen((LogRecord rec) {
-        logRecords.add(rec);
-      });
+      Logger.root
+        ..level = Level.FINE
+        ..onRecord.listen(logRecords.add);
 
       store.add(addTodo('log'));
 
@@ -90,8 +90,8 @@ void main() {
     });
 
     test('toggles a todo', () {
-      store.dispatch(addTodo('test this adds a todo'));
-      store.dispatch(addTodo('test this adds another todo'));
+      store..dispatch(addTodo('test this adds a todo'))..dispatch(
+          addTodo('test this adds another todo'));
 
       expect(store.state.item1.elementAt(0).completed, isFalse);
 
@@ -110,9 +110,10 @@ void main() {
     });
 
     test('adds middleware', () async {
-      store.addMiddleware(const ThunkMiddleware());
+      store
+        ..addMiddleware(const ThunkMiddleware())
+        ..dispatch(asyncAddTodo('thunk!'));
 
-      store.dispatch(asyncAddTodo('thunk!'));
       await store.stream.first;
 
       expect(store.state.item1.length, 1);

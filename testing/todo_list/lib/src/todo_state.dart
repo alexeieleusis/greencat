@@ -1,8 +1,9 @@
 library todo_state;
 
+import 'package:tuple/tuple.dart';
+
 import 'action_type.dart';
 import 'todo.dart';
-import 'package:tuple/tuple.dart';
 
 /// State for the todoApp.
 class TodoState {
@@ -16,10 +17,8 @@ class TodoState {
   final Iterable<Todo> visibleTodos;
 
   /// Creates a new instance.
-  TodoState(VisibilityFilter filter, Iterable<Todo> todos)
-      : this.filter = filter,
-        this.todos = todos,
-        visibleTodos = todos.where((t) {
+  TodoState(this.filter, this.todos)
+      : visibleTodos = todos.where((t) {
           switch (filter) {
             case VisibilityFilter.all:
               return true;
@@ -40,12 +39,11 @@ class TodoState {
   TodoState copy({VisibilityFilter filter, Iterable<Todo> todos}) =>
       new TodoState(filter ?? this.filter, todos ?? this.todos);
 
+  @override
+  String toString() =>
+      'TodoState{filter: $filter, todos: $todos, visibleTodos: $visibleTodos}';
+
   /// Converts the state to a tuple.
   Tuple2<Iterable<Todo>, VisibilityFilter> toTuple() =>
       new Tuple2(todos, filter);
-
-  @override
-  String toString() {
-    return 'TodoState{filter: $filter, todos: $todos, visibleTodos: $visibleTodos}';
-  }
 }

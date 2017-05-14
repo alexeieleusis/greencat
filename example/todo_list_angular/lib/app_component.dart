@@ -21,6 +21,7 @@ class AppComponent implements OnInit, OnDestroy {
   /// Visibility filters to show to the user.
   Iterable<VisibilityFilter> get filters => VisibilityFilter.values;
 
+  /// Elements displayed in the list.
   Iterable<Todo> get visibleTodos => combinedStore.state.item1.where((t) =>
       combinedStore.state.item2 == VisibilityFilter.all ||
       t.completed &&
@@ -40,16 +41,18 @@ class AppComponent implements OnInit, OnDestroy {
 
   @override
   void ngOnInit() {
-    combinedStore.dispatch(addTodo('test this adds a todo'));
-    combinedStore.dispatch(addTodo('test this adds another todo'));
-    combinedStore.dispatch(toggleTodo(0));
-    combinedStore.addMiddleware(new ThunkMiddleware<
-        Tuple2<Iterable<Todo>, VisibilityFilter>, TodoAction>());
-    Logger.root.level = Level.FINE;
-    Logger.root.onRecord.listen((LogRecord rec) {
-      print('${rec.loggerName} ${rec.time}');
-      print('${rec.message}');
-    });
+    combinedStore
+      ..dispatch(addTodo('test this adds a todo'))..dispatch(
+        addTodo('test this adds another todo'))..dispatch(toggleTodo(0))
+      ..addMiddleware(const ThunkMiddleware<
+          Tuple2<Iterable<Todo>, VisibilityFilter>,
+          TodoAction>());
+    Logger.root
+      ..level = Level.FINE
+      ..onRecord.listen((rec) {
+        print('${rec.loggerName} ${rec.time}');
+        print('${rec.message}');
+      });
 
     combinedStore.addMiddleware(new LoggingMiddleware(Logger.root));
   }

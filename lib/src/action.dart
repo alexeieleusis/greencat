@@ -42,9 +42,7 @@ abstract class Action<T> {
   T get type;
 
   @override
-  String toString() {
-    return 'Action { type: $type, payload: $payload }';
-  }
+  String toString() => 'Action { type: $type, payload: $payload }';
 }
 
 /// Base type for actions that trigger side effects.

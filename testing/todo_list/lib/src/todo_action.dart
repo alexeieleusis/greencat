@@ -29,7 +29,8 @@ class AddTodoAction extends TodoAction<String> {
 }
 
 /// Asynchronously adds a todo to the store.
-class AsyncAddTodoAction extends TodoAction<String> implements AsyncAction {
+class AsyncAddTodoAction extends TodoAction<String>
+    implements AsyncAction<ActionType> {
   ///
   AsyncAddTodoAction(String payload) : super(payload);
 
@@ -38,11 +39,10 @@ class AsyncAddTodoAction extends TodoAction<String> implements AsyncAction {
 
   /// Adds a task asynchronously.
   @override
-  Future call(MiddlewareApi api) {
-    return new Future.value('').then((_) {
+  Future call(MiddlewareApi api) =>
+      new Future.value('').then((_) {
       api.dispatch(addTodo(payload));
     });
-  }
 }
 
 /// Actions to be triggered to the app store.
