@@ -13,9 +13,11 @@ class LoggingMiddleware<S, A extends Action> implements Function {
   /// Logs the action, current state and state after applying the reducer.
   DispatchTransformer<A> call(MiddlewareApi<S, A> api) => (next) => (action) {
         final next2 = next(action);
-        _logger..fine('action: $action')..fine(
-            'prev state: ${api.state}')..fine('next state: ${api.state}')..fine(
-            '=== === === === === === === === === === === === === === ');
+        _logger
+          ..fine('action: $action')
+          ..fine('prev state: ${api.state}')
+          ..fine('next state: ${api.state}')
+          ..fine('=== === === === === === === === === === === === === === ');
         return next2;
       };
 }

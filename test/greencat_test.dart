@@ -26,8 +26,9 @@ void main() {
     });
 
     test('toggles a todo', () {
-      store..dispatch(addTodo('test this adds a todo'))..dispatch(
-          addTodo('test this adds another todo'));
+      store
+        ..dispatch(addTodo('test this adds a todo'))
+        ..dispatch(addTodo('test this adds another todo'));
 
       expect(store.state.todos.elementAt(0).completed, isFalse);
 
@@ -49,7 +50,6 @@ void main() {
       store
         ..addMiddleware(const ThunkMiddleware())
         ..dispatch(asyncAddTodo('thunk!'));
-
       await store.stream.first;
 
       expect(store.state.todos.length, 1);
@@ -90,8 +90,9 @@ void main() {
     });
 
     test('toggles a todo', () {
-      store..dispatch(addTodo('test this adds a todo'))..dispatch(
-          addTodo('test this adds another todo'));
+      store
+        ..dispatch(addTodo('test this adds a todo'))
+        ..dispatch(addTodo('test this adds another todo'));
 
       expect(store.state.item1.elementAt(0).completed, isFalse);
 
@@ -113,7 +114,6 @@ void main() {
       store
         ..addMiddleware(const ThunkMiddleware())
         ..dispatch(asyncAddTodo('thunk!'));
-
       await store.stream.first;
 
       expect(store.state.item1.length, 1);

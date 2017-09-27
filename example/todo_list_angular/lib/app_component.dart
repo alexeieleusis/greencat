@@ -42,11 +42,11 @@ class AppComponent implements OnInit, OnDestroy {
   @override
   void ngOnInit() {
     combinedStore
-      ..dispatch(addTodo('test this adds a todo'))..dispatch(
-        addTodo('test this adds another todo'))..dispatch(toggleTodo(0))
+      ..dispatch(addTodo('test this adds a todo'))
+      ..dispatch(addTodo('test this adds another todo'))
+      ..dispatch(toggleTodo(0))
       ..addMiddleware(const ThunkMiddleware<
-          Tuple2<Iterable<Todo>, VisibilityFilter>,
-          TodoAction>());
+          Tuple2<Iterable<Todo>, VisibilityFilter>, TodoAction>());
     Logger.root
       ..level = Level.FINE
       ..onRecord.listen((rec) {
