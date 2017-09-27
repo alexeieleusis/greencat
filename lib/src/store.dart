@@ -13,7 +13,7 @@ import 'package:greencat/src/typedefs.dart';
 class Store<S, A extends Action> implements Sink<A> {
   Reducer<S, A> _reducer;
   S _state;
-  final _controller = new StreamController<S>.broadcast();
+  final StreamController<S> _controller;
   final List<Middleware<S, A>> _middlewares = <Middleware<S, A>>[];
 
   /// Creates a Redux store that holds the complete state tree of your app.
@@ -32,9 +32,11 @@ class Store<S, A extends Action> implements Sink<A> {
   /// the store with third-party capabilities such as middleware, time travel,
   /// persistence, etc. The only store enhancer that ships with Redux is
   /// applyMiddleware().
-  Store.createStore(Reducer<S, A> reducer, {S initialState, Function enhancer})
+  Store.createStore(Reducer<S, A> reducer,
+      {S initialState, Function enhancer, bool sync: false})
       : _reducer = reducer,
-        _state = initialState ?? reducer(null, currentState: null);
+        _state = initialState ?? reducer(null, currentState: null),
+        _controller = new StreamController<S>.broadcast(sync: sync);
 
   /// Returns the current state tree of your application.
   ///  It is equal to the last value returned by the store’s reducer.
