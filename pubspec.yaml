@@ -1,6 +1,6 @@
 name: greencat
 description: A port of Redux to Dart, including Redux Thunk and a simple Logger.
-version: 0.0.6
+version: 0.1.4
 author: Alexei Diaz <alexei.eleusis@gmail.com>
 homepage: https://github.com/alexeieleusis/greencat
 
