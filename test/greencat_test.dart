@@ -48,7 +48,7 @@ void main() {
 
     test('adds middleware', () async {
       store
-        ..addMiddleware(const ThunkMiddleware())
+        ..addMiddleware(const ThunkMiddleware<TodoState, TodoAction>())
         ..dispatch(asyncAddTodo('thunk!'));
       await store.stream.first;
 
@@ -57,7 +57,8 @@ void main() {
     });
 
     test('logging middleware sends messages', () async {
-      store.addMiddleware(new LoggingMiddleware(Logger.root));
+      store.addMiddleware(
+          new LoggingMiddleware<TodoState, TodoAction>(Logger.root));
       final logRecords = <LogRecord>[];
       Logger.root
         ..level = Level.FINE
@@ -112,7 +113,8 @@ void main() {
 
     test('adds middleware', () async {
       store
-        ..addMiddleware(const ThunkMiddleware())
+        ..addMiddleware(const ThunkMiddleware<
+            Tuple2<Iterable<Todo>, VisibilityFilter>, TodoAction>())
         ..dispatch(asyncAddTodo('thunk!'));
       await store.stream.first;
 
