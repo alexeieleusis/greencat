@@ -5,7 +5,7 @@ version: 0.0.1
 #homepage: https://www.example.com
 
 environment:
-  sdk: '>=1.0.0 <2.0.0'
+  sdk: '>=2.0.0 <3.0.0'
 
 dependencies:
   greencat:
